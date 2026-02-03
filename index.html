@@ -1,81 +1,248 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>App Portfolio</title>
-<link rel="stylesheet" href="style/style.css" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>App Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0f1115;
+      color: #111;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      background: #0f1115;
+      padding: 20px 32px;
+      z-index: 10;
+    }
+
+    .topbar nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 24px;
+    }
+
+    .topbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      opacity: .7;
+    }
+
+    .topbar a:hover { opacity: 1; }
+
+    .container {
+      padding: 0 24px;
+    }
+
+    .card {
+      max-width: 1200px;
+      margin: 80px auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,.35);
+    }
+
+    .card-left { padding: 48px; }
+
+    .subtitle {
+      color: #555;
+      margin-top: -8px;
+    }
+
+    .inner-nav {
+      display: flex;
+      gap: 16px;
+      margin: 32px 0 24px;
+    }
+
+    .inner-nav button {
+      background: none;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      padding-bottom: 6px;
+      border-bottom: 2px solid transparent;
+    }
+
+    .inner-nav button.active {
+      border-color: #ff9a3c;
+    }
+
+    .content { display: none; }
+    .content.active { display: block; }
+
+    .card-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      transition: background 0.4s ease;
+    }
+
+    .card-right.tankbuddy {
+      background: linear-gradient(160deg, #ff9a3c, #ffcc70);
+    }
+
+    .card-right.kilometervreter {
+      background: linear-gradient(160deg, #3c9aff, #70ccff);
+    }
+
+    @media (min-width: 900px) {
+      .card-right { padding: 56px; }
+    }
+
+    .phone-bezel {
+      background: #000;
+      border-radius: 40px;
+      padding: 18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.5);
+      position: relative;
+    }
+
+    .phone-notch {
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 24px;
+      background: #000;
+      border-radius: 0 0 16px 16px;
+      z-index: 2;
+    }
+
+    .phone img {
+      display: block;
+      width: 280px;
+      border-radius: 28px;
+    }
+  </style>
 </head>
 <body>
 
-
 <header class="topbar">
-<nav>
-<a href="#/tankbuddy">TankBuddy</a>
-<a href="#/kilometervreter">Kilometervreter</a>
-</nav>
+  <nav>
+    <a href="#/tankbuddy">TankBuddy</a>
+    <a href="#/kilometervreter">Kilometervreter</a>
+  </nav>
 </header>
 
-
 <main class="container">
-<section class="card fade-in">
-<div class="card-left">
-<h1 id="appTitle"></h1>
-<p class="subtitle" id="appSubtitle"></p>
+  <section class="card">
+    <div class="card-left">
+      <h1 id="appTitle"></h1>
+      <p class="subtitle" id="appSubtitle"></p>
 
+      <div class="inner-nav">
+        <button data-section="info" class="active">Info</button>
+        <button data-section="specs">Specificaties</button>
+        <button data-section="download">Download</button>
+      </div>
 
-<div class="inner-nav">
-<button data-section="info" class="active">Info</button>
-<button data-section="specs">Specificaties</button>
-<button data-section="download">Download</button>
-</div>
+      <div id="info" class="content active"></div>
+      <div id="specs" class="content"></div>
+      <div id="download" class="content"></div>
+    </div>
 
-
-<div id="info" class="content active"></div>
-<div id="specs" class="content"></div>
-<div id="download" class="content"></div>
-</div>
-
-
-<div class="card-right">
-<div class="carousel">
-<img id="carouselImage" src="images/App1_001.png" alt="App preview">
-</div>
-</div>
-</section>
+    <div class="card-right">
+      <div class="phone-bezel">
+        <div class="phone-notch"></div>
+        <div class="phone">
+          <div class="carousel">
+            <img id="carouselImage" alt="App preview">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
-
 <script>
-const apps = {
-tankbuddy: {
-title: 'TankBuddy',
-subtitle: 'Slim je tankbeurten bijhouden',
-images: ['App1_001.png','App1_002.png'],
-info: 'TankBuddy maakt het eenvoudig om tankbeurten, kosten en verbruik bij te houden.',
-specs: '<ul><li>Android APK</li><li>Offline first</li><li>Verbruiksstatistieken</li></ul>',
-download: '<strong>Beschikbaar:</strong><br>APK & Play Store (binnenkort)'
-},
-kilometervreter: {
-title: 'Kilometervreter',
-subtitle: 'Inzicht in afstand & rijgedrag',
-images: ['App2_001.png','App2_002.png'],
-info: 'Ideaal voor veelrijders en zakelijke kilometers.',
-specs: '<ul><li>Rittenoverzicht</li><li>CSV export</li><li>Zakelijk / privé</li></ul>',
-download: '<strong>Beschikbaar:</strong><br>APK (binnenkort)'
-}
+const placeholderImages = {
+  app1: [
+    'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="480"><rect width="100%" height="100%" rx="28" fill="%23ffffff33"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="20" fill="white">TankBuddy<br/>Screen 1</text></svg>',
+    'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="480"><rect width="100%" height="100%" rx="28" fill="%23ffffff33"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="20" fill="white">TankBuddy<br/>Screen 2</text></svg>'
+  ],
+  app2: [
+    'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="480"><rect width="100%" height="100%" rx="28" fill="%23ffffff33"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="20" fill="white">Kilometervreter<br/>Screen 1</text></svg>',
+    'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="480"><rect width="100%" height="100%" rx="28" fill="%23ffffff33"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="20" fill="white">Kilometervreter<br/>Screen 2</text></svg>'
+  ]
 }
 
+const apps = {
+  tankbuddy: {
+    title: 'TankBuddy',
+    subtitle: 'Slim je tankbeurten bijhouden',
+    images: placeholderImages.app1,
+    info: 'TankBuddy maakt het eenvoudig om tankbeurten, kosten en verbruik bij te houden.',
+    specs: '<ul><li>Android APK</li><li>Offline first</li><li>Verbruiksstatistieken</li></ul>',
+    download: '<strong>Beschikbaar:</strong><br>APK & Play Store (binnenkort)'
+  },
+  kilometervreter: {
+    title: 'Kilometervreter',
+    subtitle: 'Inzicht in afstand & rijgedrag',
+    images: placeholderImages.app2,
+    info: 'Ideaal voor veelrijders en zakelijke kilometers.',
+    specs: '<ul><li>Rittenoverzicht</li><li>CSV export</li><li>Zakelijk / privé</li></ul>',
+    download: '<strong>Beschikbaar:</strong><br>APK (binnenkort)'
+  }
+}
 
 let currentApp = 'tankbuddy'
 let imageIndex = 0
 
-
 function loadFromHash() {
-const hash = location.hash.replace('#/','')
-loadApp(apps[hash] ? hash : 'tankbuddy')
+  const hash = location.hash.replace('#/','')
+  loadApp(apps[hash] ? hash : 'tankbuddy')
 }
 
-
 function loadApp(key) {
+  currentApp = key
+  imageIndex = 0
+  const a = apps[key]
+  appTitle.innerText = a.title
+  appSubtitle.innerText = a.subtitle
+  info.innerHTML = a.info
+  specs.innerHTML = a.specs
+  download.innerHTML = a.download
+  updateImage()
+}
+
+function updateImage() {
+  carouselImage.src = apps[currentApp].images[imageIndex]
+  document.querySelector('.card-right').className = 'card-right ' + currentApp
+} {
+  carouselImage.src = 'images/' + apps[currentApp].images[imageIndex]
+}
+
+setInterval(() => {
+  imageIndex = (imageIndex + 1) % apps[currentApp].images.length
+  updateImage()
+}, 3000)
+
+const buttons = document.querySelectorAll('.inner-nav button')
+buttons.forEach(btn => {
+  btn.onclick = () => {
+    buttons.forEach(b => b.classList.remove('active'))
+    btn.classList.add('active')
+    document.querySelectorAll('.content').forEach(c => c.classList.remove('active'))
+    document.getElementById(btn.dataset.section).classList.add('active')
+  }
+})
+
+window.addEventListener('hashchange', loadFromHash)
+loadFromHash()
+</script>
+
+</body>
+</html>
