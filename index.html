@@ -3,103 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Michel Dekker | App Portfolio</title>
+    <title>Michel Dekker | Portfolio</title>
     <link rel="stylesheet" href="style/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <nav class="top-nav">
-        <div class="container nav-content">
-            <span class="logo">micheldekker.nl</span>
-            <button id="theme-toggle" aria-label="Wissel thema">
-                <span class="icon-sun">☀️</span>
-                <span class="icon-moon">🌙</span>
-            </button>
+    <nav class="main-nav">
+        <div class="container nav-flex">
+            <div class="nav-links-left">
+                <a href="index.html" class="active">Home</a>
+                <a href="tankbuddy.html">TankBuddy</a>
+                <a href="#">FoodFlow</a>
+            </div>
+            <button id="theme-toggle">☀️/🌙</button>
         </div>
     </nav>
 
-    <main class="main-content">
-        <section class="app-section">
-            <div class="container">
-                <div class="app-card">
-                    <div class="phone-container">
+    <main class="page-wrapper">
+        
+        <section class="project-container">
+            <div class="product-card" style="--accent-color: #ff7e5f;">
+                
+                <div class="card-left">
+                    <div class="card-content">
+                        <span class="app-label">Mobile App</span>
+                        <h1 class="app-title">TankBuddy</h1>
+                        
+                        <nav class="card-menu">
+                            <button class="menu-item active" onclick="switchTab(this, 'intro-1')">Intro</button>
+                            <button class="menu-item" onclick="switchTab(this, 'specs-1')">Specs</button>
+                            <button class="menu-item" onclick="switchTab(this, 'download-1')">Download</button>
+                        </nav>
+
+                        <div class="tab-content">
+                            <div id="intro-1" class="tab-panel active">
+                                <p>Beheer je brandstofverbruik met een moderne interface. TankBuddy helpt je besparen door data visueel te maken.</p>
+                            </div>
+                            <div id="specs-1" class="tab-panel">
+                                <ul>
+                                    <li>Kilometerregistratie</li>
+                                    <li>Verbruiksgrafieken</li>
+                                    <li>CSV Export opties</li>
+                                </ul>
+                            </div>
+                            <div id="download-1" class="tab-panel">
+                                <p>Beschikbaar voor Android en iOS.</p>
+                                <a href="#" class="btn-main">Google Play Store</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-right">
+                    <div class="nothing-phone-wrapper">
                         <div class="nothing-phone">
-                            <div class="phone-bezel">
-                                <div class="camera-dot"></div>
-                                <div class="screen-overflow">
-                                    <div class="slideshow">
-                                        <div class="slide active" style="background: #3b82f6;"><span>TankBuddy<br>Dashboard</span></div>
-                                        <div class="slide" style="background: #2563eb;"><span>Inzicht in<br>Verbruik</span></div>
-                                    </div>
+                            <div class="screen">
+                                <div class="slideshow">
+                                    <div class="slide active" style="background: #222;"><span>Screen 1</span></div>
+                                    <div class="slide" style="background: #333;"><span>Screen 2</span></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="app-details">
-                        <span class="badge">Live</span>
-                        <h1>TankBuddy</h1>
-                        <p class="description">Bespaar op je brandstofkosten door slim inzicht in je verbruik. De ultieme tool voor elke autoliefhebber.</p>
-                        <div class="action-buttons">
-                            <a href="tankbuddy.html" class="btn btn-primary">Bekijk Details</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="app-section">
-            <div class="container">
-                <div class="app-card reverse">
-                    <div class="phone-container">
+        <section class="project-container">
+            <div class="product-card" style="--accent-color: #3b82f6;">
+                <div class="card-left">
+                    <div class="card-content">
+                        <span class="app-label">Coming Soon</span>
+                        <h1 class="app-title">FoodFlow</h1>
+                        <nav class="card-menu">
+                            <button class="menu-item active" onclick="switchTab(this, 'intro-2')">Intro</button>
+                            <button class="menu-item" onclick="switchTab(this, 'specs-2')">Specs</button>
+                        </nav>
+                        <div class="tab-content">
+                            <div id="intro-2" class="tab-panel active">
+                                <p>Voorkom voedselverspilling. Houd exact bij wat er in je koelkast ligt en krijg receptsuggesties.</p>
+                            </div>
+                            <div id="specs-2" class="tab-panel">
+                                <p>AI-gebaseerde houdbaarheidsdetectie en slimme boodschappenlijstjes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-right">
+                    <div class="nothing-phone-wrapper">
                         <div class="nothing-phone">
-                            <div class="phone-bezel">
-                                <div class="camera-dot"></div>
-                                <div class="screen-overflow">
-                                    <div class="slideshow">
-                                        <div class="slide active" style="background: #10b981;"><span>FoodFlow<br>Concept</span></div>
-                                        <div class="slide" style="background: #059669;"><span>Slimme<br>Recepten</span></div>
-                                    </div>
+                            <div class="screen">
+                                <div class="slideshow">
+                                    <div class="slide active" style="background: #1e3a8a;"><span>Intro</span></div>
+                                    <div class="slide" style="background: #1e40af;"><span>Demo</span></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="app-details">
-                        <span class="badge concept">Concept</span>
-                        <h1>FoodFlow</h1>
-                        <p class="description">Minder voedselverspilling door een intelligente koelkast-inventaris. Weet altijd wat je in huis hebt.</p>
-                        <div class="action-buttons">
-                            <a href="#" class="btn btn-secondary">Coming Soon</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="app-section future-projects">
-            <div class="container">
-                <div class="app-card mini-card">
-                    <div class="mini-info">
-                        <h2>Altijd in beweging</h2>
-                        <p>Er wordt continu gewerkt aan nieuwe ideeën en innovaties. Heb je een uitdaging voor me?</p>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 Michel Dekker</p>
-    </footer>
-
     <script>
-        // Slideshow Logica voor alle kaarten
-        const slideshows = document.querySelectorAll('.slideshow');
-        slideshows.forEach(show => {
-            const slides = show.querySelectorAll('.slide');
+        // Tab Switch Functie
+        function switchTab(button, tabId) {
+            const card = button.closest('.card-left');
+            card.querySelectorAll('.menu-item').forEach(btn => btn.classList.remove('active'));
+            card.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+            
+            button.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Slideshow
+        document.querySelectorAll('.slideshow').forEach(show => {
             let current = 0;
+            const slides = show.querySelectorAll('.slide');
             setInterval(() => {
                 slides[current].classList.remove('active');
                 current = (current + 1) % slides.length;
@@ -108,14 +130,13 @@
         });
 
         // Theme Toggle
-        const themeToggle = document.getElementById('theme-toggle');
-        themeToggle.addEventListener('click', () => {
-            const newTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        });
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+        const toggle = document.getElementById('theme-toggle');
+        toggle.onclick = () => {
+            const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        };
+        if(localStorage.getItem('theme')) document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
     </script>
 </body>
 </html>
