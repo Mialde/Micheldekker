@@ -10,24 +10,35 @@
 <body>
     <nav class="top-nav">
         <div class="container nav-content">
-            <a href="index.html" style="text-decoration: none; color: inherit; font-weight: bold;">← Terug</a>
             <span class="logo">TankBuddy</span>
+            <div class="nav-controls">
+                <a href="index.html" class="back-btn" title="Terug naar overzicht">
+                    <span class="icon-arrow">←</span>
+                </a>
+                <button id="theme-toggle" aria-label="Wissel thema">
+                    <span class="icon-sun">☀️</span>
+                    <span class="icon-moon">🌙</span>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <main class="container" style="padding: 4rem 0;">
-        <div class="app-card" style="flex-direction: column; align-items: flex-start;">
-            <h1>Over TankBuddy</h1>
-            <p class="description">
-                Hier komt de uitgebreide uitleg van de app. TankBuddy is gebouwd met Flutter 
-                en maakt gebruik van een lokale database om je privacy te waarborgen. 
-                Geen cloud, geen tracking, gewoon jouw data.
-            </p>
+    <main class="container detail-container">
+        <div class="app-card detail-hero">
+            <div class="app-details">
+                <h1>TankBuddy</h1>
+                <p class="description">Een diepe duik in de ontwikkeling en features van de app...</p>
             </div>
+        </div>
     </main>
     
     <script>
-        // Zorg dat thema overeenkomt met hoofdpagina
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            const newTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
     </script>

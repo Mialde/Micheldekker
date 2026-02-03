@@ -30,81 +30,92 @@
                                 <div class="screen-overflow">
                                     <div class="slideshow">
                                         <div class="slide active" style="background: #3b82f6;"><span>TankBuddy<br>Dashboard</span></div>
-                                        <div class="slide" style="background: #2563eb;"><span>Verbruik<br>Grafiek</span></div>
-                                        <div class="slide" style="background: #1d4ed8;"><span>Locatie<br>Tracker</span></div>
+                                        <div class="slide" style="background: #2563eb;"><span>Inzicht in<br>Verbruik</span></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="glyph-bg"></div>
                         </div>
                     </div>
 
                     <div class="app-details">
-                        <span class="badge">Nieuw</span>
+                        <span class="badge">Live</span>
                         <h1>TankBuddy</h1>
-                        <p class="description">
-                            Houd grip op je brandstofkosten met TankBuddy. Een minimalistische interface 
-                            gecombineerd met krachtige analyses voor jouw voertuig.
-                        </p>
-                        
-                        <div class="features">
-                            <div class="feature-item"><span>✓</span> Direct verbruik inzicht</div>
-                            <div class="feature-item"><span>✓</span> Kosten per kilometer</div>
-                            <div class="feature-item"><span>✓</span> Geen advertenties</div>
-                        </div>
-
+                        <p class="description">Bespaar op je brandstofkosten door slim inzicht in je verbruik. De ultieme tool voor elke autoliefhebber.</p>
                         <div class="action-buttons">
                             <a href="tankbuddy.html" class="btn btn-primary">Bekijk Details</a>
-                            <a href="#" class="btn btn-secondary">Download App</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="app-section placeholder-section">
+
+        <section class="app-section">
+            <div class="container">
+                <div class="app-card reverse">
+                    <div class="phone-container">
+                        <div class="nothing-phone">
+                            <div class="phone-bezel">
+                                <div class="camera-dot"></div>
+                                <div class="screen-overflow">
+                                    <div class="slideshow">
+                                        <div class="slide active" style="background: #10b981;"><span>FoodFlow<br>Concept</span></div>
+                                        <div class="slide" style="background: #059669;"><span>Slimme<br>Recepten</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="app-details">
+                        <span class="badge concept">Concept</span>
+                        <h1>FoodFlow</h1>
+                        <p class="description">Minder voedselverspilling door een intelligente koelkast-inventaris. Weet altijd wat je in huis hebt.</p>
+                        <div class="action-buttons">
+                            <a href="#" class="btn btn-secondary">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="app-section future-projects">
             <div class="container">
                 <div class="app-card mini-card">
                     <div class="mini-info">
-                        <h2>Toekomstige projecten</h2>
-                        <p>Er wordt momenteel gewerkt aan nieuwe ideeën. Heb je een suggestie of wil je samenwerken? Neem contact op.</p>
+                        <h2>Altijd in beweging</h2>
+                        <p>Er wordt continu gewerkt aan nieuwe ideeën en innovaties. Heb je een uitdaging voor me?</p>
                     </div>
                 </div>
             </div>
         </section>
-        </main>
+    </main>
 
     <footer>
         <p>&copy; 2026 Michel Dekker</p>
     </footer>
 
     <script>
-        // Slideshow Logica
-        function startSlideshow() {
-            const slides = document.querySelectorAll('.slide');
+        // Slideshow Logica voor alle kaarten
+        const slideshows = document.querySelectorAll('.slideshow');
+        slideshows.forEach(show => {
+            const slides = show.querySelectorAll('.slide');
             let current = 0;
             setInterval(() => {
                 slides[current].classList.remove('active');
                 current = (current + 1) % slides.length;
                 slides[current].classList.add('active');
             }, 2000);
-        }
-
-        // Theme Toggle Logica
-        const themeToggle = document.getElementById('theme-toggle');
-        const html = document.documentElement;
-
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
         });
 
-        // Check voor opgeslagen voorkeur
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            const newTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
         const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) html.setAttribute('data-theme', savedTheme);
-
-        window.onload = startSlideshow;
+        if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
 </body>
 </html>
