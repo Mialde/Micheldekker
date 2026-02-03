@@ -1,133 +1,110 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Michel Dekker | App Developer Portfolio</title>
+    <title>Michel Dekker | App Portfolio</title>
     <link rel="stylesheet" href="style/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="container nav-container">
-            <div class="logo">Michel Dekker</div>
-            <ul class="nav-links">
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#over">Over</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+    <nav class="top-nav">
+        <div class="container nav-content">
+            <span class="logo">micheldekker.nl</span>
+            <button id="theme-toggle" aria-label="Wissel thema">
+                <span class="icon-sun">☀️</span>
+                <span class="icon-moon">🌙</span>
+            </button>
         </div>
     </nav>
 
-    <header class="hero">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <span class="highlight-tag">Nieuwste Project</span>
-                <h1>TankBuddy</h1>
-                <p class="hero-text">
-                    De slimste manier om je tankbeurten en verbruik bij te houden. 
-                    Krijg direct inzicht in je kosten per kilometer en rij zuiniger.
-                    Jouw persoonlijke brandstof assistent, altijd op zak.
-                </p>
-                <div class="download-buttons">
-                    <a href="#" class="store-btn play-store">
-                        <img src="https://via.placeholder.com/30x30/ffffff/000000?text=G" alt="Google Play">
-                        <div>
-                            <span>GET IT ON</span>
-                            Google Play
+    <main class="main-content">
+        <section class="app-section">
+            <div class="container">
+                <div class="app-card">
+                    <div class="phone-container">
+                        <div class="nothing-phone">
+                            <div class="phone-bezel">
+                                <div class="camera-dot"></div>
+                                <div class="screen-overflow">
+                                    <div class="slideshow">
+                                        <div class="slide active" style="background: #3b82f6;"><span>TankBuddy<br>Dashboard</span></div>
+                                        <div class="slide" style="background: #2563eb;"><span>Verbruik<br>Grafiek</span></div>
+                                        <div class="slide" style="background: #1d4ed8;"><span>Locatie<br>Tracker</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="glyph-bg"></div>
                         </div>
-                    </a>
-                    <a href="#" class="store-btn app-store">
-                        <img src="https://via.placeholder.com/30x30/ffffff/000000?text=A" alt="App Store">
-                        <div>
-                            <span>Download on the</span>
-                            App Store
+                    </div>
+
+                    <div class="app-details">
+                        <span class="badge">Nieuw</span>
+                        <h1>TankBuddy</h1>
+                        <p class="description">
+                            Houd grip op je brandstofkosten met TankBuddy. Een minimalistische interface 
+                            gecombineerd met krachtige analyses voor jouw voertuig.
+                        </p>
+                        
+                        <div class="features">
+                            <div class="feature-item"><span>✓</span> Direct verbruik inzicht</div>
+                            <div class="feature-item"><span>✓</span> Kosten per kilometer</div>
+                            <div class="feature-item"><span>✓</span> Geen advertenties</div>
                         </div>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="phone-showcase">
-                <div class="phone-frame">
-                    <img src="https://via.placeholder.com/400x800/000000/ffffff?text=Nothing+Phone+Frame+(Transparent+Screen)" alt="Nothing Phone 2 Frame" class="frame-image">
-                    
-                    <div class="screen-content slideshow-container">
-                        <img src="https://via.placeholder.com/360x780/2563eb/ffffff?text=TankBuddy+Screen+1" class="slide active">
-                        <img src="https://via.placeholder.com/360x780/10b981/ffffff?text=TankBuddy+Screen+2" class="slide">
-                        <img src="https://via.placeholder.com/360x780/f59e0b/ffffff?text=TankBuddy+Screen+3" class="slide">
+
+                        <div class="action-buttons">
+                            <a href="tankbuddy.html" class="btn btn-primary">Bekijk Details</a>
+                            <a href="#" class="btn btn-secondary">Download App</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="bg-shape shape-1"></div>
-        <div class="bg-shape shape-2"></div>
-    </header>
-
-    <main class="container portfolio-section" id="portfolio">
-        <div class="section-header">
-            <h2>Meer Apps</h2>
-            <p>Ontdek andere projecten en concepten waar ik aan werk.</p>
-        </div>
-
-        <section class="app-grid">
-
-            <a href="tankbuddy.html" class="app-card featured">
-                <div class="app-card-content">
-                    <span class="tag">Uitgelicht</span>
-                    <h3>TankBuddy</h3>
-                    <p>Volledig inzicht in je brandstofverbruik en autokosten.</p>
-                    <span class="cta-link">Bekijk project &rarr;</span>
-                </div>
-                <div class="app-card-image">
-                    <img src="https://via.placeholder.com/200x400/2563eb/ffffff?text=TB+Preview" alt="TankBuddy Preview">
-                </div>
-            </a>
-            <div class="app-card placeholder">
-                 <div class="app-card-content">
-                    <span class="tag soon">Binnenkort</span>
-                    <h3>In Ontwikkeling</h3>
-                    <p>Nieuwe ideeën worden momenteel uitgewerkt tot prototypes.</p>
-                </div>
-                <div class="app-card-icon">
-                    <span>🚀</span>
+        </section>
+        <section class="app-section placeholder-section">
+            <div class="container">
+                <div class="app-card mini-card">
+                    <div class="mini-info">
+                        <h2>Toekomstige projecten</h2>
+                        <p>Er wordt momenteel gewerkt aan nieuwe ideeën. Heb je een suggestie of wil je samenwerken? Neem contact op.</p>
+                    </div>
                 </div>
             </div>
-            </section>
-    </main>
+        </section>
+        </main>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2024 Michel Dekker. Mobile App Developer.</p>
-            <div class="footer-links">
-                 <a href="#">GitHub</a>
-                 <a href="#">LinkedIn</a>
-            </div>
-        </div>
+        <p>&copy; 2026 Michel Dekker</p>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const slides = document.querySelectorAll('.slideshow-container .slide');
-            let currentSlide = 0;
-            const slideInterval = 2500; // Wissel elke 2.5 seconden (iets rustiger dan 2s)
+        // Slideshow Logica
+        function startSlideshow() {
+            const slides = document.querySelectorAll('.slide');
+            let current = 0;
+            setInterval(() => {
+                slides[current].classList.remove('active');
+                current = (current + 1) % slides.length;
+                slides[current].classList.add('active');
+            }, 2000);
+        }
 
-            function nextSlide() {
-                // Verwijder 'active' klasse van de huidige slide
-                slides[currentSlide].classList.remove('active');
-                
-                // Bereken de index van de volgende slide (terug naar 0 aan het eind)
-                currentSlide = (currentSlide + 1) % slides.length;
-                
-                // Voeg 'active' klasse toe aan de nieuwe slide
-                slides[currentSlide].classList.add('active');
-            }
+        // Theme Toggle Logica
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
 
-            // Start de slideshow
-            setInterval(nextSlide, slideInterval);
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
         });
-    </script>
 
+        // Check voor opgeslagen voorkeur
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) html.setAttribute('data-theme', savedTheme);
+
+        window.onload = startSlideshow;
+    </script>
 </body>
 </html>

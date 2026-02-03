@@ -1,414 +1,134 @@
-/* --- ALGEMENE INSTELLINGEN --- */
+/* --- VARIABLES & THEMES --- */
 :root {
-    /* Donker Thema Kleurenpalet */
-    --bg-dark: #0a0a0a;       /* Diepzwarte achtergrond */
-    --bg-card: #141414;       /* Iets lichtere kaart achtergrond */
-    --bg-card-hover: #1a1a1a; /* Hover state */
-    --text-primary: #ffffff;  /* Witte tekst */
-    --text-secondary: #a3a3a3; /* Lichtgrijze tekst */
-    --accent-color: #3b82f6;  /* Helder blauw accent */
-    --accent-glow: rgba(59, 130, 246, 0.3); /* Blauwe gloed */
-    --font-family: 'Poppins', sans-serif;
+    --bg-page: #f0f2f5;
+    --bg-card: #ffffff;
+    --text-main: #1a1a1a;
+    --text-muted: #666666;
+    --accent: #000000;
+    --accent-btn: #000000;
+    --btn-text: #ffffff;
+    --border-color: #eeeeee;
+    --phone-frame: #1a1a1a;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+[data-theme="dark"] {
+    --bg-page: #0f0f0f;
+    --bg-card: #1a1a1a;
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
+    --accent: #ffffff;
+    --accent-btn: #ffffff;
+    --btn-text: #000000;
+    --border-color: #333333;
+    --phone-frame: #2a2a2a;
 }
 
-body {
-    font-family: var(--font-family);
-    color: var(--text-primary);
-    background-color: var(--bg-dark);
-    line-height: 1.6;
-    overflow-x: hidden; /* Voorkom horizontale scroll door decoraties */
+/* --- BASIS --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    background-color: var(--bg-page); 
+    color: var(--text-main);
+    transition: background 0.3s ease;
 }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
+/* --- NAV --- */
+.top-nav { padding: 1.5rem 0; border-bottom: 1px solid var(--border-color); background: var(--bg-card); }
+.nav-content { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-weight: 800; font-size: 1.2rem; }
+
+#theme-toggle {
+    background: none; border: 1px solid var(--border-color); padding: 0.5rem;
+    border-radius: 8px; cursor: pointer; color: var(--text-main);
 }
+[data-theme="light"] .icon-sun, [data-theme="dark"] .icon-moon { display: none; }
 
-a {
-    text-decoration: none;
-    color: inherit;
-    transition: color 0.3s ease;
-}
-
-/* --- NAVBAR --- */
-.navbar {
-    padding: 20px 0;
-    position: absolute; /* Over de hero heen */
-    width: 100%;
-    top: 0;
-    z-index: 10;
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-weight: 700;
-    font-size: 1.5rem;
-    letter-spacing: -0.5px;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-}
-
-.nav-links a {
-    font-weight: 500;
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-}
-
-.nav-links a:hover {
-    color: var(--accent-color);
-}
-
-/* --- HERO SECTIE --- */
-.hero {
-    position: relative;
-    padding: 160px 0 100px;
-    min-height: 90vh; /* Vul het grootste deel van het scherm */
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-}
-
-.hero-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 kolommen: tekst links, telefoon rechts */
-    gap: 60px;
-    align-items: center;
-}
-
-/* Linker Kant: Tekst */
-.hero-content {
-    z-index: 2;
-}
-
-.highlight-tag {
-    display: inline-block;
-    background: var(--accent-glow);
-    color: var(--accent-color);
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-}
-
-.hero h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    background: linear-gradient(to right, #ffffff, #a3a3a3);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.hero-text {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    margin-bottom: 40px;
-    max-width: 500px;
-}
-
-/* Store Knoppen */
-.download-buttons {
-    display: flex;
-    gap: 20px;
-}
-
-.store-btn {
-    display: flex;
-    align-items: center;
-    background-color: var(--bg-card);
-    border: 1px solid #333;
-    padding: 10px 20px;
-    border-radius: 12px;
-    color: var(--text-primary);
-    transition: all 0.3s ease;
-}
-
-.store-btn:hover {
-    border-color: var(--accent-color);
-    background-color: var(--bg-card-hover);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px -10px var(--accent-glow);
-}
-
-.store-btn img {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-}
-
-.store-btn div {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.2;
-    text-align: left;
-}
-
-.store-btn span {
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-}
-
-/* Rechter Kant: Telefoon Slideshow */
-.phone-showcase {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    z-index: 2;
-}
-
-.phone-frame {
-    position: relative;
-    width: 300px; /* Pas aan op basis van je frame afbeelding */
-    height: auto;
-    /* Zorg dat de telefoon eruit springt */
-    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
-    transform: rotate(-5deg); /* Een kleine, stijlvolle draai */
-    transition: transform 0.5s ease;
-}
-
-.phone-frame:hover {
-     transform: rotate(0deg) scale(1.02); /* Rechtzetten bij hover */
-}
-
-.frame-image {
-    width: 100%;
-    display: block;
-    position: relative;
-    z-index: 2; /* Het frame ligt BOVENOP het scherm */
-    pointer-events: none; /* Zodat je niet op het frame zelf klikt */
-}
-
-/* Het scherm IN de telefoon */
-.screen-content {
-    position: absolute;
-    /* Deze waarden moet je precies afstemmen op je 'nothing-phone-2-frame.png' */
-    /* Dit is een gokje op basis van een standaard frame, pas aan! */
-    top: 12px;
-    left: 15px;
-    width: calc(100% - 30px);
-    height: calc(100% - 24px);
-    background-color: #000; /* Achtergrondkleur voor als een slide laadt */
-    z-index: 1; /* Ligt ONDER het frame */
-    overflow: hidden;
-    border-radius: 30px; /* Pas aan aan de hoeken van het scherm in je frame */
-}
-
-/* Slideshow Logica */
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out;
-}
-
-.slide.active {
-    opacity: 1;
-}
-
-/* Achtergrond Decoraties */
-.bg-shape {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
-    z-index: 0;
-    opacity: 0.4;
-}
-
-.shape-1 {
-    width: 400px;
-    height: 400px;
-    background: var(--accent-color);
-    top: -100px;
-    right: -100px;
-}
-
-.shape-2 {
-    width: 300px;
-    height: 300px;
-    background: #10b981; /* Groen accent */
-    bottom: -50px;
-    left: -50px;
-}
-
-/* --- PORTFOLIO SECTIE --- */
-.portfolio-section {
-    padding: 80px 24px;
-}
-
-.section-header {
-    margin-bottom: 40px;
-}
-
-.section-header h2 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
-
-.section-header p {
-    color: var(--text-secondary);
-}
-
-.app-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
-}
-
+/* --- APP CARD (Based on Freepik Layout) --- */
+.app-section { padding: 4rem 0; }
 .app-card {
-    background-color: var(--bg-card);
-    border-radius: 20px;
-    padding: 30px;
+    background: var(--bg-card);
+    border-radius: 32px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    border: 1px solid #222;
-    transition: all 0.3s ease;
+    padding: 3rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    gap: 4rem;
+}
+
+/* --- NOTHING PHONE (2) CSS FRAME --- */
+.phone-container { flex: 1; display: flex; justify-content: center; position: relative; }
+.nothing-phone { position: relative; width: 280px; height: 560px; z-index: 2; }
+
+.phone-bezel {
+    width: 100%; height: 100%;
+    background: var(--phone-frame);
+    border-radius: 48px;
+    padding: 12px;
+    box-shadow: inset 0 0 2px 2px #444;
+    position: relative;
+    border: 4px solid #333;
+}
+
+.screen-overflow {
+    width: 100%; height: 100%;
+    background: #000;
+    border-radius: 36px;
     overflow: hidden;
     position: relative;
 }
 
-.app-card:hover {
-    background-color: var(--bg-card-hover);
-    border-color: var(--accent-color);
-    box-shadow: 0 10px 30px -15px var(--accent-glow);
-    transform: translateY(-5px);
+.camera-dot {
+    position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+    width: 12px; height: 12px; background: #111; border-radius: 50%; z-index: 10;
 }
 
-/* Featured Card (TankBuddy) */
-.app-card.featured {
-    /* Je kunt deze speciaal stylen als je wilt */
+.slideshow { width: 100%; height: 100%; position: relative; }
+.slide {
+    position: absolute; width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: bold; font-size: 1.5rem; text-align: center;
+    opacity: 0; transition: opacity 0.8s ease-in-out;
+}
+.slide.active { opacity: 1; }
+
+.glyph-bg {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 400px; height: 400px; background: radial-gradient(circle, var(--text-muted) 0%, transparent 70%);
+    opacity: 0.1; z-index: 1;
 }
 
-.app-card-content {
-    flex: 1;
-    z-index: 2;
+/* --- INFO TEXT --- */
+.app-details { flex: 1.2; }
+.badge { 
+    background: #eef2ff; color: #3b82f6; padding: 0.4rem 1rem; 
+    border-radius: 100px; font-size: 0.8rem; font-weight: 700; 
 }
+[data-theme="dark"] .badge { background: #1e293b; }
 
-.tag {
-    display: inline-block;
-    font-size: 0.75rem;
-    padding: 4px 10px;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    font-weight: 600;
-    background-color: var(--accent-glow);
-    color: var(--accent-color);
-}
+.app-details h1 { font-size: 3.5rem; margin: 1rem 0; font-weight: 800; letter-spacing: -2px; }
+.description { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem; line-height: 1.6; }
 
-.tag.soon {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--text-secondary);
-}
+.features { margin-bottom: 2.5rem; }
+.feature-item { margin-bottom: 0.5rem; font-weight: 600; display: flex; gap: 10px; }
+.feature-item span { color: #10b981; }
 
-.app-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+.action-buttons { display: flex; gap: 1rem; }
+.btn {
+    padding: 1rem 2rem; border-radius: 12px; font-weight: 700; text-decoration: none;
+    transition: transform 0.2s;
 }
-
-.app-card p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    margin-bottom: 25px;
-}
-
-.cta-link {
-    color: var(--accent-color);
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-
-.app-card-image {
-    width: 100px;
-    height: auto;
-    transform: rotate(10deg) translateY(20px) translateX(20px);
-    transition: transform 0.3s ease;
-    z-index: 1;
-    opacity: 0.8;
-}
-
-.app-card:hover .app-card-image {
-    transform: rotate(0deg) translateY(0) translateX(0);
-    opacity: 1;
-}
-
-.app-card-image img {
-    width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-}
-
-/* Placeholder Card Icon */
-.app-card-icon {
-    font-size: 4rem;
-    opacity: 0.2;
-    transform: rotate(-20deg);
-}
-
-/* --- FOOTER --- */
-footer {
-    padding: 60px 0;
-    text-align: center;
-    color: var(--text-secondary);
-    margin-top: auto;
-    border-top: 1px solid #222;
-}
-
-.footer-links {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-}
-
-.footer-links a {
-    color: var(--text-primary);
-    font-weight: 600;
-}
-
-.footer-links a:hover {
-    color: var(--accent-color);
-}
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--accent-btn); color: var(--btn-text); }
+.btn-secondary { border: 1px solid var(--border-color); color: var(--text-main); }
 
 /* --- RESPONSIVE --- */
-@media (max-width: 992px) {
-    .hero h1 { font-size: 3rem; }
-    .hero-container { grid-template-columns: 1fr; text-align: center; gap: 80px; }
-    .hero-text { margin: 0 auto 40px; }
-    .download-buttons { justify-content: center; }
-    .phone-frame { width: 250px; transform: rotate(0deg); }
-    .phone-frame:hover { transform: scale(1.02); }
-    .app-card-image { display: none; } /* Verberg kleine previews op mobiel */
-    .app-card { text-align: center; justify-content: center; }
-    .tag { margin: 0 auto 15px; }
+@media (max-width: 900px) {
+    .app-card { flex-direction: column; padding: 2rem; text-align: center; }
+    .action-buttons { justify-content: center; }
+    .feature-item { justify-content: center; }
 }
 
-@media (max-width: 768px) {
-    .nav-links { display: none; } /* Simpele oplossing voor mobiel menu */
-    .hero { padding-top: 120px; }
-    .hero h1 { font-size: 2.5rem; }
-    .download-buttons { flex-direction: column; align-items: center; }
-    .store-btn { width: 100%; max-width: 250px; justify-content: center; }
-}
+footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; }

@@ -1,138 +1,35 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TankBuddy | App Details</title>
+    <title>TankBuddy Details | Michel Dekker</title>
     <link rel="stylesheet" href="style/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* Specifieke stijlen voor detailpagina overschrijvingen */
-        .detail-hero {
-            padding-top: 120px;
-            min-height: auto;
-            align-items: flex-start;
-        }
-        .back-nav {
-            margin-bottom: 40px;
-        }
-        .back-link {
-            color: var(--text-secondary);
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-        }
-        .back-link:hover {
-            color: var(--accent-color);
-        }
-        .back-link span { margin-right: 10px; }
-
-        .detail-content-area {
-            background-color: var(--bg-card);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid #222;
-        }
-        .detail-content-area h2, .detail-content-area h3 {
-            color: var(--text-primary);
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-        .detail-content-area p, .detail-content-area li {
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-        }
-        .detail-content-area ul {
-            padding-left: 20px;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <nav class="navbar">
-        <div class="container nav-container">
-            <div class="logo">Michel Dekker</div>
+    <nav class="top-nav">
+        <div class="container nav-content">
+            <a href="index.html" style="text-decoration: none; color: inherit; font-weight: bold;">← Terug</a>
+            <span class="logo">TankBuddy</span>
         </div>
     </nav>
 
-    <header class="hero detail-hero">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <div class="back-nav">
-                    <a href="index.html" class="back-link"><span>&larr;</span> Terug naar overzicht</a>
-                </div>
-
-                <img src="https://via.placeholder.com/80x80/3b82f6/ffffff?text=TB" alt="TankBuddy Icoon" style="border-radius: 16px; margin-bottom: 20px;">
-                <h1>TankBuddy</h1>
-                <p class="hero-text">Jouw persoonlijke brandstof- en kostenassistent.</p>
-
-                <div class="download-buttons">
-                    <a href="#" class="store-btn play-store">
-                        <img src="https://via.placeholder.com/30x30/ffffff/000000?text=G" alt="">
-                        <div><span>GET IT ON</span> Google Play</div>
-                    </a>
-                    <a href="#" class="store-btn app-store">
-                        <img src="https://via.placeholder.com/30x30/ffffff/000000?text=A" alt="">
-                        <div><span>Download on the</span> App Store</div>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="phone-showcase">
-                <div class="phone-frame" style="transform: rotate(0deg);"> <img src="https://via.placeholder.com/400x800/000000/ffffff?text=Nothing+Phone+Frame+(Transparent+Screen)" alt="Nothing Phone 2 Frame" class="frame-image">
-                    <div class="screen-content slideshow-container">
-                        <img src="https://via.placeholder.com/360x780/2563eb/ffffff?text=TankBuddy+Screen+1" class="slide active">
-                        <img src="https://via.placeholder.com/360x780/10b981/ffffff?text=TankBuddy+Screen+2" class="slide">
-                        <img src="https://via.placeholder.com/360x780/f59e0b/ffffff?text=TankBuddy+Screen+3" class="slide">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main class="container" style="padding-bottom: 80px;">
-        <div class="detail-content-area">
-            <h2>Over de applicatie</h2>
-            <p>
-                TankBuddy is ontstaan uit de behoefte om snel en eenvoudig inzicht te krijgen in de werkelijke kosten van autorijden. 
-                Geen ingewikkelde spreadsheets meer, maar direct na het tanken weten wat je verbruik was.
+    <main class="container" style="padding: 4rem 0;">
+        <div class="app-card" style="flex-direction: column; align-items: flex-start;">
+            <h1>Over TankBuddy</h1>
+            <p class="description">
+                Hier komt de uitgebreide uitleg van de app. TankBuddy is gebouwd met Flutter 
+                en maakt gebruik van een lokale database om je privacy te waarborgen. 
+                Geen cloud, geen tracking, gewoon jouw data.
             </p>
-            <p>
-                De app is ontworpen met een focus op snelheid en gebruiksgemak. De 'dark mode' interface zorgt voor een prettige ervaring, ook 's avonds in de auto.
-            </p>
-
-            <h3>Belangrijkste functionaliteiten:</h3>
-            <ul>
-                <li>✅ Supersnel invoeren van liters, kilometers en prijs.</li>
-                <li>✅ Directe berekening van verbruik (bijv. 1 op 18,5 km) en kosten per km.</li>
-                <li>✅ Overzichtelijke historie van al je tankbeurten.</li>
-                <li>✅ Grafieken om trends in je verbruik te ontdekken.</li>
-                <li>✅ Ondersteuning voor meerdere voertuigen in één app.</li>
-            </ul>
-        </div>
+            </div>
     </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Michel Dekker. <a href="index.html" style="color: var(--accent-color);">Terug naar Home</a></p>
-        </div>
-    </footer>
-
+    
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const slides = document.querySelectorAll('.slideshow-container .slide');
-            let currentSlide = 0;
-            const slideInterval = 2500;
-
-            function nextSlide() {
-                slides[currentSlide].classList.remove('active');
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].classList.add('active');
-            }
-
-            setInterval(nextSlide, slideInterval);
-        });
+        // Zorg dat thema overeenkomt met hoofdpagina
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
-
 </body>
 </html>
