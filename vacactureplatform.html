@@ -33,8 +33,13 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Voor soepele overgangen */
         .transition-all { transition: all 0.3s ease; }
+        
+        /* Custom scrollbar voor een premium look */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
     </style>
 </head>
 <body class="text-slate-900">
@@ -43,7 +48,7 @@
     <script type="text/babel">
         /**
          * Robuust Icon Component (Inline SVG)
-         * Dit voorkomt alle foutmeldingen met externe bibliotheken zoals Lucide.
+         * Dit voorkomt alle foutmeldingen met externe bibliotheken en garandeert werking op GitHub Pages.
          */
         const Icon = ({ name, size = 24, className = "" }) => {
             const icons = {
