@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Werken bij Frisson - Marktleider in Cosmetica</title>
+    
+    <!-- Scripts voor React, Babel (JSX) en Tailwind CSS -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Core Library (Basis voor iconen) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            -webkit-font-smoothing: antialiased;
+        }
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(30, 27, 75, 0.75) 0%, rgba(30, 27, 75, 0.45) 100%);
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-[#FAFBFF] text-slate-900">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        /**
+         * Robuust Icon Component
+         * Gebruikt lucide.icons data om handmatig React elementen te maken.
+         * Dit voorkomt "forwardRef" en "undefined component" errors in browser omgevingen.
+         */
+        const Icon = ({ name, size = 24, className = "" }) => {
+            if (!window.lucide || !window.lucide.icons) return null;
+            
+            const iconData = window.lucide.icons[name];
+            if (!iconData) {
+                console.warn(`Icon "${name}" niet gevonden in Lucide bibliotheek.`);
+                return null;
+            }
+
+            // iconData structuur: [tagName, attributes, [children]]
+            const [tag, attrs, children] = iconData;
+
+            return React.createElement(
+                'svg',
+                {
+                    ...attrs,
+                    width: size,
+                    height: size,
+                    className: className,
+                    stroke: "currentColor",
+                    strokeWidth: 2,
+                    strokeLinecap: "round",
+                    strokeLinejoin: "round",
+                    fill: "none"
+                },
+                children.map((child, i) => {
+                    const [childTag, childAttrs] = child;
+                    return React.createElement(childTag, { ...childAttrs, key: i });
+                })
+            );
+        };
+
+        const CATEGORIES = ['Alle Afdelingen', 'Productie', 'Facilitair', 'Kantoor', 'Logistiek'];
+
+        function App() {
+            const [view, setView] = React.useState('frontend');
+            const [selectedJob, setSelectedJob] = React.useState(null);
+            const [searchTerm, setSearchTerm] = React.useState('');
+            const [selectedCategory, setSelectedCategory] = React.useState('Alle Afdelingen');
+            
+            // Vacature Data met Frisson focus
+            const [vacancies] = React.useState([
+                {
+                    id: '1',
+                    title: 'Productbereider / Menger',
+                    department: 'Productie',
+                    location: 'Dronten',
+                    type: 'Full-time',
+                    tagline: 'De "Master Chef" van onze cosmetische innovaties',
+                    description: 'Ben jij nauwkeurig, heb je affiniteit met techniek en wil je werken met de mooiste grondstoffen? Als Productbereider bij Frisson ben jij verantwoordelijk voor het hart van ons proces. In onze mengerij in Dronten maken we dagelijks duizenden kilo\'s aan shampoos, luxe crèmes en hoogwaardige reinigingsmiddelen voor internationale topmerken.',
+                    responsibilities: '• Het nauwkeurig afwegen en mengen van grondstoffen volgens complexe recepturen.\n• Bedienen en monitoren van onze industriële menginstallaties.\n• Uitvoeren van kritische kwaliteitsmetingen (pH-waarde, viscositeit en kleur).\n• Zorgen voor een steriele en veilige werkomgeving volgens de GMP-richtlijnen.\n• Registreren van productiegegevens en meedenken over procesoptimalisatie.',
+                    requirements: '• MBO werk- en denkniveau (bijv. VAPRO, Levensmiddelentechnologie of vergelijkbaar).\n• Een passie voor uiterste nauwkeurigheid: kwaliteit staat bij jou op nummer één.\n• Je bent proactief, fysiek fit en houdt van een dynamische werkomgeving.\n• Goede beheersing van de Nederlandse taal.',
+                    benefits: '• Een competitief salaris dat past bij jouw verantwoordelijkheid.\n• Uitstekende pensioenregeling en reiskostenvergoeding.\n• Werken in een innovatief familiebedrijf met 35 jaar historie en korte lijnen.\n• Kansen om door te groeien binnen onze groeiende organisatie.\n• Een hecht team met een informele werksfeer en gezellige teamuitjes.',
+                    headerImage: 'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&q=80&w=2000',
+                    status: 'actief'
+                },
+                {
+                    id: '2',
+                    title: 'Facilitair Medewerker',
+                    department: 'Facilitair',
+                    location: 'Dronten',
+                    type: '16-24 uur',
+                    tagline: 'De spil in ons moderne bedrijfspand',
+                    description: 'Bij Frisson produceren we verzorgingsproducten, en die passie voor uitstraling begint bij ons eigen pand. Als Facilitair Medewerker ben jij de drijvende kracht achter een representatieve en frisse werkomgeving. Jij zorgt ervoor dat onze 70+ collega\'s en gewaardeerde gasten zich elke dag welkom voelen.',
+                    responsibilities: '• Dagelijks onderhoud van kantoorruimtes, kantines en presentatieruimtes.\n• Beheer van facilitaire voorraden en het plaatsen van bestellingen.\n• Ontvangen van leveranciers en gasten met een glimlach.\n• Signaleren en (laten) verhelpen van technische mankementen in het pand.\n• Ondersteunen bij de organisatie van borrels en bedrijfsevenementen.',
+                    requirements: '• Je bent het zonnetje in huis: representatief, proactief en zeer servicegericht.\n• Je hebt oog voor detail en ziet direct wat er moet gebeuren.\n• Je kunt uitstekend zelfstandig werken en je eigen dagindeling plannen.\n• Woonachtig in (of nabij) Dronten.',
+                    benefits: '• Flexibele werkuren die goed te combineren zijn met je privéleven.\n• Een moderne en schone werkomgeving in ons pand in Dronten.\n• Marktconform salaris volgens de CAO.\n• Altijd vers fruit en de beste koffie op de werkvloer.\n• Onderdeel van een betrokken en warm team.',
+                    headerImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2000',
+                    status: 'actief'
+                }
+            ]);
+
+            const filteredJobs = vacancies.filter(j => 
+                j.status === 'actief' && 
+                (selectedCategory === 'Alle Afdelingen' || j.department === selectedCategory) &&
+                j.title.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+
+            const Frontend = () => (
+                <div className="animate-fade-in">
+                    {/* Hero Section */}
+                    <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=2070" className="absolute inset-0 w-full h-full object-cover" alt="Werken bij Frisson" />
+                        <div className="absolute inset-0 hero-gradient"></div>
+                        <div className="max-w-5xl mx-auto relative z-10 text-center px-6">
+                            <span className="inline-block px-4 py-1.5 bg-indigo-600/40 border border-white/20 text-white text-[10px] font-bold uppercase tracking-[0.3em] rounded-full mb-8">Passie voor Kwaliteit sinds 1990</span>
+                            <h1 className="text-5xl md:text-8xl font-black text-white mb-8 tracking-tighter leading-none">Bouw mee aan <br/><span className="text-indigo-400">de toekomst.</span></h1>
+                            <p className="text-indigo-50 text-xl max-w-2xl mx-auto mb-12 opacity-90 leading-relaxed font-medium">Word onderdeel van ons team in Dronten en produceer cosmetica die de wereld verovert.</p>
+                            
+                            {/* Zoekbalk */}
+                            <div className="max-w-3xl mx-auto bg-white p-2 rounded-[2.5rem] shadow-2xl flex flex-col md:flex-row gap-2">
+                                <div className="flex-1 flex items-center px-6 py-4 bg-slate-50 rounded-2xl">
+                                    <Icon name="Search" className="text-indigo-600 mr-3" size={20} />
+                                    <input 
+                                        type="text" 
+                                        placeholder="Welke rol zoek je?" 
+                                        className="bg-transparent w-full outline-none font-bold text-slate-800 placeholder:text-slate-400" 
+                                        value={searchTerm} 
+                                        onChange={(e) => setSearchTerm(e.target.value)} 
+                                    />
+                                </div>
+                                <div className="flex items-center px-6 py-4 bg-slate-50 rounded-2xl min-w-[200px]">
+                                    <Icon name="Filter" className="text-indigo-600 mr-3" size={20} />
+                                    <select 
+                                        value={selectedCategory} 
+                                        onChange={(e) => setSelectedCategory(e.target.value)} 
+                                        className="bg-transparent w-full outline-none font-black text-slate-700 uppercase text-[10px] tracking-widest appearance-none cursor-pointer"
+                                    >
+                                        {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* USP Section */}
+                    <section className="max-w-7xl mx-auto px-6 -mt-16 mb-24 relative z-20">
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                            {[
+                                { icon: "Award", label: "Marktleider", sub: "35+ jaar expertise" },
+                                { icon: "Heart", label: "Familiebedrijf", sub: "Warme teamcultuur" },
+                                { icon: "Zap", label: "Eigen Mengerij", sub: "Innovatie in huis" },
+                                { icon: "MapPin", label: "Dronten", sub: "Centraal gevestigd" }
+                            ].map((usp, i) => (
+                                <div key={i} className="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100 flex flex-col items-center text-center hover:translate-y-[-5px] transition-all duration-300">
+                                    <div className="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-4"><Icon name={usp.icon} /></div>
+                                    <h4 className="font-black text-slate-800">{usp.label}</h4>
+                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">{usp.sub}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Vacatures Grid */}
+                    <section className="max-w-7xl mx-auto px-6 py-10 mb-32">
+                        <div className="flex items-center justify-between mb-16">
+                            <h2 className="text-4xl font-black text-slate-900">Actuele <span className="text-indigo-600">Vacatures</span></h2>
+                            <div className="h-px flex-1 bg-slate-100 mx-8 hidden sm:block"></div>
+                            <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{filteredJobs.length} Posities Open</span>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {filteredJobs.map(job => (
+                                <div 
+                                    key={job.id} 
+                                    className="group bg-white border border-slate-200 rounded-[3rem] p-10 hover:shadow-2xl hover:border-indigo-100 transition-all cursor-pointer flex flex-col" 
+                                    onClick={() => { setSelectedJob(job); setView('detail'); window.scrollTo(0,0); }}
+                                >
+                                    <div className="mb-6"><span className="px-3 py-1 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-wider rounded-lg">{job.department}</span></div>
+                                    <h3 className="text-2xl font-black text-slate-800 mb-2 group-hover:text-indigo-600 transition-colors leading-tight">{job.title}</h3>
+                                    <p className="text-indigo-400 font-bold text-sm mb-6">{job.tagline}</p>
+                                    <div className="flex items-center text-xs font-bold text-slate-400 mb-8 space-x-4">
+                                        <span className="flex items-center"><Icon name="MapPin" size={14} className="mr-1.5 text-indigo-400" />{job.location}</span>
+                                        <span className="flex items-center"><Icon name="Clock" size={14} className="mr-1.5 text-indigo-400" />{job.type}</span>
+                                    </div>
+                                    <p className="text-slate-500 text-sm leading-relaxed line-clamp-3 mb-10 flex-grow">{job.description}</p>
+                                    <button className="w-full py-4 bg-slate-900 group-hover:bg-indigo-600 text-white font-black rounded-2xl transition-all flex items-center justify-center space-x-3 text-xs uppercase tracking-widest">
+                                        <span>Bekijk Vacature</span><Icon name="ArrowRight" size={14} />
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                </div>
+            );
+
+            const Detail = () => (
+                <div className="bg-white min-h-screen animate-fade-in">
+                    {/* Header Image Section */}
+                    <div className="relative h-[550px] flex items-center justify-center overflow-hidden">
+                        <img src={selectedJob.headerImage} className="absolute inset-0 w-full h-full object-cover scale-105" alt="Header" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent"></div>
+                        <div className="max-w-5xl mx-auto relative z-10 text-center px-6">
+                            <button onClick={() => setView('frontend')} className="mb-8 inline-flex items-center text-indigo-300 font-black uppercase text-[10px] tracking-[0.3em] hover:text-white transition-all bg-white/10 px-6 py-2 rounded-full backdrop-blur-md border border-white/20">
+                                <Icon name="ChevronLeft" size={16} className="mr-2" />Terug naar Overzicht
+                            </button>
+                            <div className="mb-4"><span className="px-4 py-1.5 bg-indigo-600 text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-full">{selectedJob.department}</span></div>
+                            <h1 className="text-5xl md:text-7xl font-black text-white leading-tight mb-6 tracking-tighter">{selectedJob.title}</h1>
+                            <div className="flex justify-center space-x-10 text-white font-bold text-sm uppercase tracking-widest opacity-90">
+                                <span className="flex items-center"><Icon name="MapPin" size={20} className="mr-2 text-indigo-400" />{selectedJob.location}</span>
+                                <span className="flex items-center"><Icon name="Clock" size={20} className="mr-2 text-indigo-400" />{selectedJob.type}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="max-w-7xl mx-auto px-6 py-24">
+                        <div className="grid lg:grid-cols-12 gap-20">
+                            {/* Hoofdinhoud */}
+                            <div className="lg:col-span-8 space-y-24">
+                                <section>
+                                    <h2 className="text-4xl font-black text-slate-900 mb-8 flex items-center"><Icon name="Info" size={40} className="mr-4 text-indigo-600" />De Uitdaging</h2>
+                                    <p className="text-xl font-medium text-slate-600 leading-relaxed whitespace-pre-wrap">{selectedJob.description}</p>
+                                </section>
+
+                                <div className="grid md:grid-cols-2 gap-16">
+                                    <section className="bg-slate-50 p-10 rounded-[3rem] border border-slate-100">
+                                        <h3 className="text-2xl font-black text-slate-900 mb-8 flex items-center"><Icon name="ListChecks" size={28} className="mr-3 text-indigo-600" />Wat ga je doen?</h3>
+                                        <ul className="space-y-4">
+                                            {selectedJob.responsibilities.split('\n').map((item, i) => (
+                                                <li key={i} className="flex items-start text-slate-600 font-medium leading-relaxed">
+                                                    <span className="w-6 h-6 bg-indigo-100 text-indigo-600 rounded-full flex-shrink-0 flex items-center justify-center mr-3 mt-0.5"><Icon name="Check" size={14} /></span>
+                                                    {item.replace('• ', '')}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </section>
+                                    <section className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm">
+                                        <h3 className="text-2xl font-black text-slate-900 mb-8 flex items-center"><Icon name="Users" size={28} className="mr-3 text-indigo-600" />Wie ben jij?</h3>
+                                        <ul className="space-y-4">
+                                            {selectedJob.requirements.split('\n').map((item, i) => (
+                                                <li key={i} className="flex items-start text-slate-600 font-medium leading-relaxed">
+                                                    <span className="w-6 h-6 bg-slate-100 text-slate-400 rounded-full flex-shrink-0 flex items-center justify-center mr-3 mt-0.5"><Icon name="Check" size={14} /></span>
+                                                    {item.replace('• ', '')}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </section>
+                                </div>
+
+                                {/* Frisson Branding Sectie */}
+                                <section className="bg-indigo-900 rounded-[3.5rem] p-12 md:p-16 text-white relative overflow-hidden shadow-2xl">
+                                    <div className="relative z-10">
+                                        <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo-400 mb-4">Over Frisson Dronten</h3>
+                                        <h2 className="text-4xl font-black mb-8">Passie voor Cosmetica sinds 1990</h2>
+                                        <div className="grid md:grid-cols-2 gap-10 text-indigo-100 leading-relaxed font-medium">
+                                            <p>Frisson is al meer dan 35 jaar een gevestigde naam in de wereld van cosmetica en reinigingsmiddelen. Vanuit ons hypermoderne pand in Dronten ontwikkelen en produceren wij een breed scala aan producten. Van luxe crèmes tot innovatieve private-label oplossingen.</p>
+                                            <p>Als onafhankelijk familiebedrijf hechten wij enorme waarde aan onze mensen. Bij ons ben je geen nummer, maar een gezicht. We investeren in jouw groei, vieren successen samen en bouwen elke dag aan een bedrijf waar we trots op zijn.</p>
+                                        </div>
+                                    </div>
+                                    <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/20 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+                                </section>
+
+                                <section>
+                                    <h3 className="text-3xl font-black text-slate-900 mb-8 flex items-center"><Icon name="Gift" size={40} className="mr-4 text-indigo-600" />Wat mag je verwachten?</h3>
+                                    <div className="grid sm:grid-cols-2 gap-6">
+                                        {selectedJob.benefits.split('\n').map((item, i) => (
+                                            <div key={i} className="flex items-center p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl transition-all group">
+                                                <div className="w-10 h-10 bg-white group-hover:bg-indigo-600 group-hover:text-white rounded-xl shadow-sm flex items-center justify-center mr-4 transition-colors"><Icon name="Zap" size={20} className="text-indigo-600 group-hover:text-white" /></div>
+                                                <span className="font-bold text-slate-700">{item.replace('• ', '')}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </section>
+                            </div>
+
+                            {/* Sidebar */}
+                            <div className="lg:col-span-4">
+                                <div className="sticky top-32 space-y-8">
+                                    <div className="bg-white border-2 border-slate-100 rounded-[2.5rem] p-10 shadow-2xl shadow-indigo-100">
+                                        <h4 className="text-2xl font-black mb-6 text-slate-900">Direct Solliciteren</h4>
+                                        <p className="text-slate-500 font-medium mb-10 leading-relaxed text-sm">Ben jij de perfecte kandidaat voor deze rol bij Frisson? Laat van je horen en stuur ons je CV!</p>
+                                        <button className="w-full py-5 bg-indigo-600 text-white font-black rounded-2xl shadow-xl shadow-indigo-200 hover:scale-[1.03] active:scale-95 transition-all text-xs uppercase tracking-[0.2em] mb-4">Solliciteer Nu</button>
+                                        <div className="pt-10 mt-10 border-t border-slate-100 space-y-6">
+                                            <div className="flex items-center justify-between"><span className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Locatie</span><span className="font-bold text-sm">{selectedJob.location}</span></div>
+                                            <div className="flex items-center justify-between"><span className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Afdeling</span><span className="font-bold text-sm">{selectedJob.department}</span></div>
+                                            <div className="flex items-center justify-between"><span className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Contract</span><span className="font-bold text-sm">{selectedJob.type}</span></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="bg-slate-900 p-10 rounded-[2.5rem] text-white overflow-hidden relative group">
+                                        <Icon name="Coffee" size={40} className="text-indigo-400 mb-6 relative z-10" />
+                                        <p className="text-lg font-bold leading-relaxed italic relative z-10">"Bij Frisson voelde ik me vanaf dag één thuis. De sfeer is informeel maar professioneel."</p>
+                                        <div className="mt-6 flex items-center space-x-3 relative z-10">
+                                            <div className="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center font-black">T</div>
+                                            <div className="text-[10px] font-bold uppercase tracking-widest text-indigo-400">Team Dronten</div>
+                                        </div>
+                                        <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-all"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            return (
+                <div className="min-h-screen">
+                    {/* Navigatie */}
+                    <nav className="sticky top-0 z-[60] bg-white/80 backdrop-blur-xl border-b border-slate-100 h-20">
+                        <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
+                            <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setView('frontend')}>
+                                <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg group-hover:rotate-6 transition-all">F</div>
+                                <div className="flex flex-col"><span className="text-lg font-black leading-none">Frisson</span><span className="text-[9px] font-bold text-indigo-600 uppercase tracking-widest mt-0.5">Careers Portal</span></div>
+                            </div>
+                            <div className="flex items-center space-x-2 text-sm font-bold">
+                                <button onClick={() => setView('frontend')} className={`px-4 py-2 rounded-lg transition-all ${view === 'frontend' ? 'text-indigo-600 bg-indigo-50' : 'text-slate-500 hover:text-slate-800'}`}>Vacatures</button>
+                                <button onClick={() => alert('Beheer Dashboard is alleen beschikbaar in de Firebase versie.')} className="bg-slate-900 text-white px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-indigo-600 transition-all shadow-md">Admin</button>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {view === 'frontend' ? <Frontend /> : <Detail />}
+                    
+                    <footer className="bg-slate-950 py-24 px-6 text-center border-t border-slate-900 mt-20">
+                        <div className="max-w-7xl mx-auto space-y-10 opacity-60">
+                            <div className="flex items-center justify-center space-x-3">
+                                <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-black">F</div>
+                                <span className="text-white font-black tracking-tight text-xl uppercase tracking-widest">Frisson Dronten</span>
+                            </div>
+                            <div className="flex flex-wrap justify-center gap-10 text-white/50 text-[10px] font-black uppercase tracking-[0.4em]">
+                                <a href="#" className="hover:text-white transition-colors">Over Ons</a>
+                                <a href="#" className="hover:text-white transition-colors">Contact</a>
+                                <a href="#" className="hover:text-white transition-colors">Producten</a>
+                            </div>
+                            <p className="text-[10px] text-white/30 font-bold uppercase tracking-[0.3em] pt-10 border-t border-white/5">© 2026 Frisson Productie BV • Werken bij de Marktleider</p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
